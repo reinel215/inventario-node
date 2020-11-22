@@ -13,26 +13,42 @@ class ProductService {
     }
 
 
-    getProduct() {
+    async getProduct(id) {
+
+        const product = await this.productsDAO.getProduct(id);
+        return product;
 
     }
 
 
     async getProducts() {
 
-        const result = await this.productsDAO.prueba();
-        return result;
+        const products = await this.productsDAO.getProducts();
+        return products;
 
     } 
 
 
-    insertProduct() {
+    async insertProduct(product) {
 
+        const result = await this.productsDAO.insertProduct(product);
+        return result;
 
     }
 
 
-    deleteProduct(){
+    async deleteProduct(id){
+
+        const result = await this.productsDAO.deleteProduct(id);
+        return result;
+
+    }
+
+
+    async updateProduct(product){
+
+        const result = await this.productsDAO.updateProduct(product);
+        return result;
 
     }
 
