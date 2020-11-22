@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "my-server",
+            "database": "inventario_nodejs",
+            "username": "reinel",
+            "password": "456845"
+        }
+    ]
+}

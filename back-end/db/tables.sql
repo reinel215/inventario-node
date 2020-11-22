@@ -1,0 +1,8 @@
+CREATE TABLE PRODUCT(
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL UNIQUE,
+    descripcion VARCHAR(500) NOT NULL,
+    cantidad INTEGER NOT NULL,
+    precio FLOAT NOT NULL,
+    image_url VARCHAR NOT NULL
+);
