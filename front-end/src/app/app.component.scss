@@ -1,0 +1,45 @@
+.toolbar-title {
+
+
+  font-weight: bold;
+  font-size: 1.5rem;
+
+}
+
+
+
+
+.table {
+
+
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+
+
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+
+
+
+
+  .table-header {
+
+    background-color: #c63535;
+    color: white;
+
+
+    .mat-header-cell {
+        color: white;
+    }
+  }
+
+
+
+  .table-body-row {
+    
+  }
+
+}
