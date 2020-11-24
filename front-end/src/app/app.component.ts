@@ -1,34 +1,89 @@
-import { Component } from '@angular/core';
-import { PeriodicElement } from './interfaces/PeriodicElement';
+import { Component, OnInit } from '@angular/core';
+import { Product } from './interfaces/Product';
+import { ProductoService } from './services/producto-service.service';
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+import {MatTableDataSource} from '@angular/material/table';
+
+import {animate, state, style, transition, trigger} from '@angular/animations';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 
 
-export class AppComponent {
-  title = 'inventario';
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+export class AppComponent implements OnInit{
+  
+  
+  expandedElement: Product | null;
+
+
+  displayedColumns: string[] = ['id', 'nombre', 'descripcion', 'cantidad', 'precio'];
+
+
+  public products : Product[];
+  public dataSource;
+
+  constructor(private productServie: ProductoService) { }
 
 
 
-  saludar(){
+  ngOnInit(): void {
+
+    this.retrieveProducts();
+  
+  }
+
+
+  retrieveProducts() {
+
+    this.productServie.getProducts()
+      .subscribe(
+        (products: Product[]) => {
+
+          this.products = products;
+          
+          
+          let withoutImageUrl = products.map( product => {
+            let {image_url, ...rest} = product;
+            return rest;
+          } );
+
+          this.dataSource = new MatTableDataSource(withoutImageUrl);
+        
+        },
+
+        err => { console.error("error en el lado del cliente"); }
+
+      );
+  }
+
+
+
+  private encontrarImagen(id) : Product{
+
+    return this.products.find( product => product.id===id );
+
+  }
+
+
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+
+  saludar() {
     console.log("hola");
   }
 }

@@ -2,7 +2,7 @@ const postgreLib = require('../postgreLib');
 
 
 
-const getAllQuery = "SELECT id, nombre, descripcion, cantidad, precio, image_url FROM PRODUCT;";
+const getAllQuery = "SELECT id, nombre, descripcion, cantidad, precio, image_url FROM PRODUCT ORDER BY id;";
 const getQuery = "SELECT id, nombre, descripcion, cantidad, precio, image_url FROM PRODUCT WHERE id=$1;";
 const insertQuery = "INSERT INTO PRODUCT (nombre, descripcion, cantidad, precio, image_url) VALUES ($1,$2,$3,$4,$5);";
 const deleteQuery = "DELETE FROM PRODUCT WHERE id=$1";

@@ -8,6 +8,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatInputModule } from '@angular/material/input';
+
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -19,7 +22,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     BrowserAnimationsModule,
    
     MatTableModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatInputModule,
+
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

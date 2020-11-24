@@ -24,7 +24,7 @@ const productApi = (app) => {
         try {
 
             const products = await productService.getProducts();
-            res.json({ products });
+            res.json(products);
 
         } catch (error) {
             next(error);
