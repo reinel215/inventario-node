@@ -4,7 +4,7 @@
 
   <mat-toolbar-row>
 
-    <h1 class="toolbar-title">AUTO REPUESTOS GUAICAIPURO 2030</h1>
+    <h1 class="toolbar-title">AUTO REPUESTOS GUAICAIPURO 2030 C.A.</h1>
 
   </mat-toolbar-row>
 
@@ -23,12 +23,17 @@
 
 
 
-<table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8 table">
+<table *ngIf="dataSource" mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8 table">
 
 
   <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
     <th mat-header-cell *matHeaderCellDef> {{column}} </th>
     <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+
+    <td mat-footer-cell *matFooterCellDef  > 
+      <label class="bold" *ngIf="column==='id'">Total</label>
+      <label class="bold" *ngIf="column==='precio'">{{calcularTotal()}}</label>  
+    </td>
   </ng-container>
 
 
@@ -37,15 +42,47 @@
   <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
   <ng-container matColumnDef="expandedDetail">
     <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-      <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-        
-        
-        
-        <label> hola </label>
+      <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+
+
+        <div class="image-container">
+
+          <img src="https://pdsohio.com/wp-content/uploads/2017/04/default-image.jpg" alt="imagen">
+
+        </div>
+
+        <div class="info-container">
+
+          <h3 class="bold detail-title">{{element.nombre}}</h3>
+
+          <div class="detail-description">
+            <label class="bold">Descripcion</label>
+            {{element.descripcion}}
+          </div>
+
+          <div class="detail-footer">
+
+            <div class="detail-footer-cantidad">
+              <label class="bold">Cantidad: </label>
+              {{element.cantidad}}
+            </div>
+
+
+            <div class="detail-footer-precio">
+              <label class="bold">Precio: </label>
+
+              {{element.precio}} $
+            </div>
+
+
+          </div>
+
+        </div>
 
 
 
-        
+
+
       </div>
     </td>
   </ng-container>
@@ -62,7 +99,7 @@
   </tr>
   <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
 
-
+  <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
 
 
 

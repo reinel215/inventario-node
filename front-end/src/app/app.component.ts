@@ -5,6 +5,7 @@ import { ProductoService } from './services/producto-service.service';
 import {MatTableDataSource} from '@angular/material/table';
 
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import { MatPaginator } from '@angular/material/paginator';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class AppComponent implements OnInit{
 
   public products : Product[];
   public dataSource;
+  public paginator : MatPaginator;
 
   constructor(private productServie: ProductoService) { }
 
@@ -51,7 +53,7 @@ export class AppComponent implements OnInit{
         (products: Product[]) => {
 
           this.products = products;
-          
+
           
           let withoutImageUrl = products.map( product => {
             let {image_url, ...rest} = product;
@@ -59,6 +61,8 @@ export class AppComponent implements OnInit{
           } );
 
           this.dataSource = new MatTableDataSource(withoutImageUrl);
+          this.paginator = this.dataSource.paginator;
+          
         
         },
 
@@ -75,6 +79,9 @@ export class AppComponent implements OnInit{
 
   }
 
+  public calcularTotal(){
+    return this.dataSource.filteredData.map( (product) => product.precio ).reduce( (acc,precio) => acc+precio,0 );
+  }
 
 
   applyFilter(event: Event) {

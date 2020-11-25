@@ -12,10 +12,9 @@
 .table {
 
 
-  width: 90%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 40px;
 
 
   -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
@@ -32,22 +31,19 @@
 
 
     .mat-header-cell {
-        color: white;
+      color: white;
     }
   }
 
 
 
-  .table-body-row {
-   
-
-  }
+  .table-body-row {}
 
 }
 
 
 
-.input-filter{
+.input-filter {
 
   width: 100%;
 
@@ -83,11 +79,54 @@ tr.example-element-row:not(.example-expanded-row):active {
   border-bottom-width: 0;
 }
 
-.example-element-detail {
+.element-detail {
   overflow: hidden;
   display: flex;
+
+
+  .image-container {
+
+    flex: 0 0 30%;
+
+    img {
+
+      height: 150px;
+      width: 150px;
+    }
+
+  }
+
+
+  .info-container {
+    flex: 0 0 70%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+
+    .detail-title {
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.5em;
+    }
+
+
+    .detail-footer {
+      display: flex;
+      justify-content: space-between;
+
+
+      .detail-footer-cantidad {}
+
+      .detail-footer-precio {}
+    }
+  }
 }
 
 
 
 
+
+
+.bold {
+  font-weight: bold;
+}
