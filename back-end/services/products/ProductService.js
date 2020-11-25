@@ -53,6 +53,14 @@ class ProductService {
     }
 
 
+    async getProductWithName(name){
+
+        const result = await this.productsDAO.getProductWithName(name);
+        return result;
+
+    }
+
+
 }
 
 

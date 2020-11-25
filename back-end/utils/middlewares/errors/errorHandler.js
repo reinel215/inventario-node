@@ -22,12 +22,7 @@ const errorHandler = (err, req , res , next) => {
         case 'debe iniciar sesion primero':
             status = 401;
             break
-            
 
-        case 'duplicate key value violates unique constraint "product_nombre_key"':
-            status = 500
-            err.message = 'ese nombre ya se encuentra en uso'
-            break;
         default:
             status = 500;
             break;
