@@ -4,5 +4,5 @@ CREATE TABLE PRODUCT(
     descripcion VARCHAR(500) NOT NULL,
     cantidad INTEGER NOT NULL,
     precio FLOAT NOT NULL,
-    image_url VARCHAR NOT NULL
+    image_url VARCHAR
 );

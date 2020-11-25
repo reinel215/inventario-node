@@ -4,47 +4,7 @@ const router = require('express').Router();
 
 
 //IMPORTAMOS EL MODULO PARA IMAGENES
-const multer = require('multer');
-const storage = multer.diskStorage({
-
-    destination: function (req, file, callback) {
-
-        callback(null,'public/');
-
-    },
-
-    filename: function (req,file,callback) {
-
-        callback(null, new Date().toISOString() + req.body.nombre + file.originalname);
-
-    }
-
-});
-
-
-const fileFilter = async (req,file,callback) =>{
-
-    const productService = new ProductService();
-    const product =  await productService.getProductWithName(req.body.nombre);
-
-    if( (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') && product.length===0 ){
-
-        callback(null,true);
-
-    }else{
-
-        console.log(product);
-        callback(new Error("ese producto ya existe"),false);
-
-    }
-
-
-
-}
-
-
-const upload = multer({ storage, fileFilter });
-
+const multer = require('../../utils/middlewares/multer/multer');
 
 
 
@@ -106,14 +66,16 @@ const productApi = (app) => {
     });
 
 
-    router.post('/',  upload.single('productImage') ,async (req, res, next) => {
+    router.post('/',  multer ,async (req, res, next) => {
 
 
         try {
+            let path;
+
+            req.file ? path=req.file.path : null;
 
             const product = req.body;
-
-            const result = await productService.insertProduct({...product, image_url : req.file.path});
+            const result = await productService.insertProduct({...product, image_url : path});
             res.status(201).json({ message: "producto creado" });
 
         } catch (error) {

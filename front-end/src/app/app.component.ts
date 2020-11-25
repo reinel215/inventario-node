@@ -8,6 +8,9 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import { MatPaginator } from '@angular/material/paginator';
 
 
+import { API_URL } from "./config/API_URL";
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -73,9 +76,16 @@ export class AppComponent implements OnInit{
 
 
 
-  private encontrarImagen(id) : Product{
+  private encontrarImagen(id) : string{
 
-    return this.products.find( product => product.id===id );
+    const url : string = this.products.find( product => product.id===id ).image_url;
+
+    if ( url ){
+      return API_URL + '/' + url;
+    }
+    else {
+      return '../assets/defaultImage.png';
+    }
 
   }
 
