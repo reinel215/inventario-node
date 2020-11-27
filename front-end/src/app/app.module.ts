@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';  
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -11,15 +12,18 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 
 import { HttpClientModule } from '@angular/common/http';
+import { DecimalPipePipe } from './pipes/decimal-pipe.pipe';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DecimalPipePipe
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    CommonModule,
    
     MatTableModule,
     MatToolbarModule,
