@@ -33,7 +33,7 @@ export class AppComponent implements OnInit{
   expandedElement: Product | null;
 
 
-  displayedColumns: string[] = ['id', 'nombre', 'descripcion', 'cantidad', 'precio'];
+  displayedColumns: string[] = ['id', 'nombre', 'descripcion', 'cantidad', 'precio' , 'total'];
 
 
   public products : Product[];
@@ -67,7 +67,19 @@ export class AppComponent implements OnInit{
             return rest;
           } );
 
-          this.dataSource = new MatTableDataSource(withoutImageUrl);
+
+          let withTotal = withoutImageUrl.map( product =>{
+
+            return {
+              ...product,
+              total : product.cantidad * product.precio
+            }
+
+          } );
+
+
+
+          this.dataSource = new MatTableDataSource(withTotal);
           
         
         },
@@ -93,7 +105,7 @@ export class AppComponent implements OnInit{
   }
 
   public calcularTotal() : number{
-    return this.dataSource.filteredData.map( (product) => product.precio ).reduce( (acc,precio) => acc+precio,0 );
+    return this.dataSource.filteredData.map( (product) => product.total ).reduce( (acc,precio) => acc+precio,0 );
   }
 
 

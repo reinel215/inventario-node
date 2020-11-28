@@ -61,6 +61,22 @@ export class CreateProductComponent implements OnInit {
 
 
 
+
+  soloEnteros(event : KeyboardEvent){
+
+    const pattern = /^[1-9][0-9]*/;
+    const inputChar = event.key;
+
+    if (!pattern.test(inputChar)){
+
+      event.preventDefault();
+
+    }
+
+  }
+
+
+
   cerrar() : void{
 
     this.dialogRef.close();

@@ -27,12 +27,12 @@
 
 
   <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
-    <th mat-header-cell *matHeaderCellDef> {{column}} {{column==='precio'?'($)':''}} </th>
-    <td mat-cell *matCellDef="let element"> {{element[column]}} {{column==='precio'?'$':''}}</td>
+    <th mat-header-cell *matHeaderCellDef> {{column}} {{(column==='precio' || column==='total')?'($)':''}} </th>
+    <td mat-cell *matCellDef="let element"> {{ (column==='precio' || column==='total') ? (element[column] | decimalPipe) : element[column] }}      {{(column==='precio' || column==='total')?'$':''}}</td>
 
     <td mat-footer-cell *matFooterCellDef  > 
-      <label class="bold" *ngIf="column==='id'">Total:</label>
-      <label class="bold" *ngIf="column==='precio'">{{(calcularTotal().toString() | decimalPipe) + "$" }}</label>  
+      <label class="bold" *ngIf="column==='id'">Total inventario:</label>
+      <label class="bold" *ngIf="column==='total'">{{(calcularTotal().toString() | decimalPipe) + "$" }}</label>  
     </td>
   </ng-container>
 

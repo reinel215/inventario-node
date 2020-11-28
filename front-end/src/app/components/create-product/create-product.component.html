@@ -22,7 +22,7 @@
 
             <mat-form-field>
                 <mat-label>Cantidad.</mat-label>
-                <input [(ngModel)]="cantidad" name="cantidad" matInput type="number">
+                <input (keypress)="soloEnteros($event)" [(ngModel)]="cantidad" name="cantidad" matInput type="number">
             </mat-form-field>
 
 
@@ -33,13 +33,14 @@
 
 
 
-            <input id="productImage" name="image" type="file" accept="image/png, image/jpeg">
-
-
             <mat-form-field class="descripcion">
                 <mat-label>Descripcion</mat-label>
                 <textarea [(ngModel)]="descripcion" name="descripcion" matInput></textarea>
             </mat-form-field>
+
+
+            <input id="productImage" name="image" type="file" accept="image/png, image/jpeg">
+
 
 
         </form>
@@ -53,8 +54,8 @@
 
 
     <div mat-dialog-actions>
-        <button mat-raised-button color="warn" (click)="cerrar()" >Cancelar</button>
-        <button mat-raised-button cdkFocusInitial color="primary" (click)="crearProducto()" >Crear</button>
+        <button mat-raised-button color="warn" (click)="cerrar()">Cancelar</button>
+        <button mat-raised-button cdkFocusInitial color="primary" (click)="crearProducto()">Crear</button>
     </div>
 
 
