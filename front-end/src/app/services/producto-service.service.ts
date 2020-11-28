@@ -51,4 +51,20 @@ export class ProductoService {
   }
 
 
+
+
+  insertProduct(formData : FormData) : Observable<Object> {
+
+    const url = API_URL + "/api/products";
+
+
+    return this.http.post<Object>(url, formData)
+    .pipe(
+      catchError(this.errorHandler)
+    );
+
+
+  }
+
+
 }

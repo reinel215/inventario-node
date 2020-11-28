@@ -3,12 +3,15 @@ import { Product } from './interfaces/Product';
 import { ProductoService } from './services/producto-service.service';
 
 import {MatTableDataSource} from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 
 import {animate, state, style, transition, trigger} from '@angular/animations';
 
 
 import { API_URL } from "./config/API_URL";
 
+
+import { CreateProductComponent } from './components/create-product/create-product.component';
 
 @Component({
   selector: 'app-root',
@@ -36,8 +39,9 @@ export class AppComponent implements OnInit{
   public products : Product[];
   public dataSource;
 
-  constructor(private productServie: ProductoService,
-
+  constructor(
+    private productServie: ProductoService,
+    private matDialog : MatDialog
     ) { }
 
 
@@ -99,7 +103,24 @@ export class AppComponent implements OnInit{
   }
 
 
-  saludar() {
-    console.log("hola");
+  insertProduct(){
+
+    const dialogRef = this.matDialog.open(CreateProductComponent, {
+      width: '400px',
+      height: '400px',
+      data : {
+        name : 'reinel',
+        animal : 'loro'
+      },
+      panelClass : 'create-product-dialog',
+      disableClose : true,
+    })
+
+
+    dialogRef.afterClosed().subscribe( result => {
+      console.log('the dialog was closed');
+      console.log(result);
+    } );
+
   }
 }

@@ -1,0 +1,61 @@
+<div mat-dialog-title class="dialog-title">
+    <mat-toolbar color="primary">
+
+        <h1 class="toolbar-title">Insertar Producto</h1>
+
+    </mat-toolbar>
+</div>
+
+
+<div class="dialog-body">
+
+
+    <div mat-dialog-content>
+
+
+        <form id="insertProductForm" class="form-insert-product">
+
+            <mat-form-field>
+                <mat-label>Nombre</mat-label>
+                <input [(ngModel)]="nombre" name="nombre" matInput>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Cantidad.</mat-label>
+                <input [(ngModel)]="cantidad" name="cantidad" matInput type="number">
+            </mat-form-field>
+
+
+            <mat-form-field>
+                <mat-label>Precio.</mat-label>
+                <input [(ngModel)]="precio" name="precio" matInput type="number">
+            </mat-form-field>
+
+
+
+            <input id="productImage" name="image" type="file" accept="image/png, image/jpeg">
+
+
+            <mat-form-field class="descripcion">
+                <mat-label>Descripcion</mat-label>
+                <textarea [(ngModel)]="descripcion" name="descripcion" matInput></textarea>
+            </mat-form-field>
+
+
+        </form>
+
+
+
+
+
+    </div>
+
+
+
+    <div mat-dialog-actions>
+        <button mat-raised-button color="warn" (click)="cerrar()" >Cancelar</button>
+        <button mat-raised-button cdkFocusInitial color="primary" (click)="crearProducto()" >Crear</button>
+    </div>
+
+
+</div>

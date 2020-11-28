@@ -1,3 +1,6 @@
+const ProductService = require('../../../services/products/ProductService');
+
+
 //IMPORTAMOS EL MODULO PARA IMAGENES
 const multer = require('multer');
 const storage = multer.diskStorage({
