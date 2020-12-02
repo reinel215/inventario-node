@@ -53,6 +53,18 @@ export class AppComponent implements OnInit{
   }
 
 
+
+
+
+
+
+
+
+
+
+
+
+//solicuta todos los productos para llenar la tabla
   retrieveProducts() {
 
     this.productServie.getProducts()
@@ -91,6 +103,17 @@ export class AppComponent implements OnInit{
 
 
 
+
+
+
+
+
+
+
+
+
+
+//dado un "id" encuentra la URL de la imagen del producto
   private encontrarImagen(id) : string{
 
     const url : string = this.products.find( product => product.id===id ).image_url;
@@ -104,15 +127,41 @@ export class AppComponent implements OnInit{
 
   }
 
+
+
+//toma la data de la pagina filtrada y calcula el total
   public calcularTotal() : number{
     return this.dataSource.filteredData.map( (product) => product.total ).reduce( (acc,precio) => acc+precio,0 );
   }
 
 
+
+
+
+
+
+
+// aplica un filtro para la tabla de material-ui
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   insertProduct(){
@@ -133,6 +182,44 @@ export class AppComponent implements OnInit{
       console.log('the dialog was closed');
       console.log(result);
     } );
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  deleteProduct(id : number | string){
+    console.log(id);
+
+    this.productServie.deleteProduct(id)
+    .subscribe( (response : Object) => {
+
+      this.retrieveProducts();
+    } ,
+    
+    err => {
+      console.log(err);
+      console.log("error borrando el producto");
+    }
+    );
+
 
   }
 }

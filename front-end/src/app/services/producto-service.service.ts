@@ -67,4 +67,14 @@ export class ProductoService {
   }
 
 
+
+  deleteProduct(id : number | string) : Observable<Object>{
+    const url = API_URL + '/api/products/' + id;
+
+    return this.http.delete<Object>(url)
+    .pipe(
+      catchError(this.errorHandler)
+    );
+  }
+
 }
