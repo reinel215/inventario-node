@@ -110,14 +110,36 @@ tr.example-element-row:not(.example-expanded-row):active {
     }
 
 
-    .detail-footer {
+    .detail-existing {
       display: flex;
       justify-content: space-between;
+    }
 
 
-      .detail-footer-cantidad {}
 
-      .detail-footer-precio {}
+    .footer-actions{
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-around;
+      
+      .footer-actions-delete{
+        flex: 0 0 40%;
+
+        button{
+          width: 100%;
+        }
+
+      }
+
+      .footer-actions-modify{
+        flex: 0 0 40%;
+
+        button{
+          width: 100%;
+        }
+
+      }
+
     }
   }
 }

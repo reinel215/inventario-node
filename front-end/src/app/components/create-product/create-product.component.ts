@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { element } from 'protractor';
 import { ProductoService } from 'src/app/services/producto-service.service';
 
 @Component({
@@ -16,7 +15,7 @@ export class CreateProductComponent implements OnInit {
 
   public nombre : string;
   public precio : string;
-  public cantidad : string;
+  public cantidad : string = '';
   public descripcion : string;
 
   constructor(
@@ -64,10 +63,15 @@ export class CreateProductComponent implements OnInit {
 
   soloEnteros(event : KeyboardEvent){
 
-    const pattern = /^[1-9][0-9]*/;
-    const inputChar = event.key;
+    this.cantidad == null ? this.cantidad = '' : null;
 
-    if (!pattern.test(inputChar)){
+    const pattern = /^[1-9][0-9]*$/;
+    const inputChar = event.key;
+    let cantidad = this.cantidad + inputChar;
+
+
+
+    if (!pattern.test(cantidad)){
 
       event.preventDefault();
 

@@ -60,21 +60,34 @@
             {{element.descripcion}}
           </div>
 
-          <div class="detail-footer">
+          <div class="detail-existing">
 
-            <div class="detail-footer-cantidad">
+            <div class="detail-existing-cantidad">
               <label class="bold">Cantidad: </label>
               {{element.cantidad}}
             </div>
 
 
-            <div class="detail-footer-precio">
+            <div class="detail-existing-precio">
               <label class="bold">Precio: </label>
 
               {{element.precio}} $
             </div>
 
 
+          </div>
+
+
+          <div class="footer-actions">
+
+            <div class="footer-actions-delete">
+              <button mat-raised-button color="warn">Eliminar</button>
+            </div>
+
+            <div class="footer-actions-modify">
+              <button mat-raised-button color="primary">Modificar</button>
+            </div>
+            
           </div>
 
         </div>
