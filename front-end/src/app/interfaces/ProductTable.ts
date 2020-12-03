@@ -1,10 +1,10 @@
-export interface Product {
+export interface ProductTable {
 
     id : number;
     nombre : string;
     descripcion : string;
     cantidad : number;
     precio : number;
-    image_url? : string;
+    total : number;
 
 }

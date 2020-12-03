@@ -2,16 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from './interfaces/Product';
 import { ProductoService } from './services/producto-service.service';
 
-import {MatTableDataSource} from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 
 import { API_URL } from "./config/API_URL";
 
 
+//IMPORTS MY COMPONENTS
 import { CreateProductComponent } from './components/create-product/create-product.component';
+import { ModifyProductComponent } from './components/modify-product/modify-product.component';
+import { ProductTable } from './interfaces/ProductTable';
 
 @Component({
   selector: 'app-root',
@@ -19,37 +22,37 @@ import { CreateProductComponent } from './components/create-product/create-produ
   styleUrls: ['./app.component.scss'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
 })
 
 
-export class AppComponent implements OnInit{
-  
-  
+export class AppComponent implements OnInit {
+
+
   expandedElement: Product | null;
 
 
-  displayedColumns: string[] = ['id', 'nombre', 'descripcion', 'cantidad', 'precio' , 'total'];
+  displayedColumns: string[] = ['id', 'nombre', 'descripcion', 'cantidad', 'precio', 'total'];
 
 
-  public products : Product[];
+  public products: Product[];
   public dataSource;
 
   constructor(
     private productServie: ProductoService,
-    private matDialog : MatDialog
-    ) { }
+    private matDialog: MatDialog
+  ) { }
 
 
 
   ngOnInit(): void {
 
     this.retrieveProducts();
-  
+
   }
 
 
@@ -64,7 +67,7 @@ export class AppComponent implements OnInit{
 
 
 
-//solicuta todos los productos para llenar la tabla
+  //solicuta todos los productos para llenar la tabla
   retrieveProducts() {
 
     this.productServie.getProducts()
@@ -73,27 +76,27 @@ export class AppComponent implements OnInit{
 
           this.products = products;
 
-          
-          let withoutImageUrl = products.map( product => {
-            let {image_url, ...rest} = product;
+
+          let withoutImageUrl = products.map(product => {
+            let { image_url, ...rest } = product;
             return rest;
-          } );
+          });
 
 
-          let withTotal = withoutImageUrl.map( product =>{
+          let withTotal = withoutImageUrl.map(product => {
 
             return {
               ...product,
-              total : product.cantidad * product.precio
+              total: product.cantidad * product.precio
             }
 
-          } );
+          });
 
 
 
           this.dataSource = new MatTableDataSource(withTotal);
-          
-        
+
+
         },
 
         err => { console.error("error en el lado del cliente"); }
@@ -113,12 +116,12 @@ export class AppComponent implements OnInit{
 
 
 
-//dado un "id" encuentra la URL de la imagen del producto
-  private encontrarImagen(id) : string{
+  //dado un "id" encuentra la URL de la imagen del producto
+  private encontrarImagen(id): string {
 
-    const url : string = this.products.find( product => product.id===id ).image_url;
+    const url: string = this.products.find(product => product.id === id).image_url;
 
-    if ( url ){
+    if (url) {
       return API_URL + '/' + url;
     }
     else {
@@ -129,9 +132,9 @@ export class AppComponent implements OnInit{
 
 
 
-//toma la data de la pagina filtrada y calcula el total
-  public calcularTotal() : number{
-    return this.dataSource.filteredData.map( (product) => product.total ).reduce( (acc,precio) => acc+precio,0 );
+  //toma la data de la pagina filtrada y calcula el total
+  public calcularTotal(): number {
+    return this.dataSource.filteredData.map((product) => product.total).reduce((acc, precio) => acc + precio, 0);
   }
 
 
@@ -141,7 +144,7 @@ export class AppComponent implements OnInit{
 
 
 
-// aplica un filtro para la tabla de material-ui
+  // aplica un filtro para la tabla de material-ui
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -164,23 +167,56 @@ export class AppComponent implements OnInit{
 
 
 
-  insertProduct(){
+  insertProduct() {
 
     const dialogRef = this.matDialog.open(CreateProductComponent, {
       width: '400px',
       height: '400px',
-      data : {
-        name : 'reinel',
-        animal : 'loro'
+      data: {
+        name: 'reinel',
+        animal: 'loro'
       },
-      panelClass : 'create-product-dialog',
-      disableClose : true,
+      panelClass: 'create-product-dialog',
+      disableClose: true,
     })
 
 
-    dialogRef.afterClosed().subscribe( result => {
+    dialogRef.afterClosed().subscribe(result => {
       console.log('the dialog was closed');
       console.log(result);
+    });
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  modifyProduct(product : ProductTable) {
+
+    const dialogRef = this.matDialog.open(ModifyProductComponent, {
+      width: '400px',
+      height: '400px',
+      data: {
+        ...product
+      },
+      panelClass: 'create-product-dialog',
+      disableClose: true,
+    })
+
+
+    dialogRef.afterClosed().subscribe( (result : ProductTable) => {
+      console.log("the dialog modify was closed");
+      console.log(result);
+      console.log(product);
     } );
 
   }
@@ -205,20 +241,20 @@ export class AppComponent implements OnInit{
 
 
 
-  deleteProduct(id : number | string){
+  deleteProduct(id: number | string) {
     console.log(id);
 
     this.productServie.deleteProduct(id)
-    .subscribe( (response : Object) => {
+      .subscribe((response: Object) => {
 
-      this.retrieveProducts();
-    } ,
-    
-    err => {
-      console.log(err);
-      console.log("error borrando el producto");
-    }
-    );
+        this.retrieveProducts();
+      },
+
+        err => {
+          console.log(err);
+          console.log("error borrando el producto");
+        }
+      );
 
 
   }

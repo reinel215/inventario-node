@@ -17,13 +17,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import { DecimalPipePipe } from './pipes/decimal-pipe.pipe';
 import { CreateProductComponent } from './components/create-product/create-product.component';
+import { ModifyProductComponent } from './components/modify-product/modify-product.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     DecimalPipePipe,
-    CreateProductComponent
+    CreateProductComponent,
+    ModifyProductComponent
   ],
   imports: [
     BrowserModule,

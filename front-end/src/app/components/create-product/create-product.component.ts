@@ -33,7 +33,7 @@ export class CreateProductComponent implements OnInit {
 
   crearProducto() : void {
     
-    let file : File;
+    let file : File = null;
     let productImageElemet : HTMLInputElement = (document.getElementById('productImage') as HTMLInputElement);
 
 

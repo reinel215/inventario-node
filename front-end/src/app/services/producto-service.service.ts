@@ -77,4 +77,19 @@ export class ProductoService {
     );
   }
 
+
+
+
+  updateProduct(formData : FormData, id : number){
+
+    const url = API_URL + '/api/products/' + id;
+
+
+    return this.http.put<Object>(url,formData)
+    .pipe(
+      catchError(this.errorHandler)
+    );
+
+  }
+
 }
