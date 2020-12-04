@@ -38,11 +38,11 @@ export class ProductoService {
 
 
 
-  getProducts() : Observable<Product[]> {
+  getProducts() : Observable<any> {
     
     const url = API_URL + "/api/products";
 
-    return this.http.get<Product[]>(url)
+    return this.http.get<Product[]>(url, {reportProgress:true, observe : 'events'} )
     .pipe( 
       retry(3),
       catchError(this.errorHandler),
@@ -53,12 +53,12 @@ export class ProductoService {
 
 
 
-  insertProduct(formData : FormData) : Observable<Object> {
+  insertProduct(formData : FormData) : Observable<any> {
 
     const url = API_URL + "/api/products";
 
 
-    return this.http.post<Object>(url, formData)
+    return this.http.post<any>(url, formData, {reportProgress:true, observe : 'events'})
     .pipe(
       catchError(this.errorHandler)
     );

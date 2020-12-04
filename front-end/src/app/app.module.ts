@@ -13,11 +13,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { HttpClientModule } from '@angular/common/http';
 import { DecimalPipePipe } from './pipes/decimal-pipe.pipe';
 import { CreateProductComponent } from './components/create-product/create-product.component';
 import { ModifyProductComponent } from './components/modify-product/modify-product.component';
+import { ErrorConnectionComponent } from './components/error-connection/error-connection.component';
 
 
 @NgModule({
@@ -25,7 +29,8 @@ import { ModifyProductComponent } from './components/modify-product/modify-produ
     AppComponent,
     DecimalPipePipe,
     CreateProductComponent,
-    ModifyProductComponent
+    ModifyProductComponent,
+    ErrorConnectionComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +43,9 @@ import { ModifyProductComponent } from './components/modify-product/modify-produ
     MatInputModule,
     MatDialogModule,
     MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatSnackBarModule,
 
     HttpClientModule
   ],

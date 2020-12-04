@@ -1,4 +1,5 @@
-import {  Inject } from '@angular/core';
+import { HttpEventType } from '@angular/common/http';
+import { Inject } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -13,16 +14,16 @@ import { ProductoService } from 'src/app/services/producto-service.service';
 export class CreateProductComponent implements OnInit {
 
 
-  public nombre : string;
-  public precio : string;
-  public cantidad : string = '';
-  public descripcion : string;
+  public nombre: string;
+  public precio: string;
+  public cantidad: string = '';
+  public descripcion: string;
 
   constructor(
     public dialogRef: MatDialogRef<CreateProductComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private productService : ProductoService
-    ) {}
+    private productService: ProductoService
+  ) { }
 
   ngOnInit(): void {
 
@@ -31,37 +32,46 @@ export class CreateProductComponent implements OnInit {
 
 
 
-  crearProducto() : void {
-    
-    let file : File = null;
-    let productImageElemet : HTMLInputElement = (document.getElementById('productImage') as HTMLInputElement);
+  crearProducto(): void {
+
+    let file: File = null;
+    let productImageElemet: HTMLInputElement = (document.getElementById('productImage') as HTMLInputElement);
 
 
-    if( productImageElemet.files.length > 0 ){
+    if (productImageElemet.files.length > 0) {
 
       file = productImageElemet.files.item(0);
 
     }
-    
 
-    
+
+
     let formData = new FormData();
-    formData.append('productImage',file);
+    formData.append('productImage', file);
     formData.append('nombre', this.nombre);
     formData.append('descripcion', this.descripcion);
     formData.append('precio', this.precio);
     formData.append('cantidad', this.cantidad);
-    
-    this.productService.insertProduct(formData).subscribe( (obj : Object) => {
-      console.log(obj);
-    } );
+
+    this.productService.insertProduct(formData).subscribe((event) => {
+      
+
+      if (event.type === HttpEventType.DownloadProgress) {
+        console.log("download progress:");
+        console.log(event);
+      }
+      if (event.type === HttpEventType.Response) {
+        console.log("donwload completed");
+        console.log(event);
+      }
+    });
 
   }
 
 
 
 
-  soloEnteros(event : KeyboardEvent){
+  soloEnteros(event: KeyboardEvent) {
 
     this.cantidad == null ? this.cantidad = '' : null;
 
@@ -71,7 +81,7 @@ export class CreateProductComponent implements OnInit {
 
 
 
-    if (!pattern.test(cantidad)){
+    if (!pattern.test(cantidad)) {
 
       event.preventDefault();
 
@@ -81,7 +91,7 @@ export class CreateProductComponent implements OnInit {
 
 
 
-  cerrar() : void{
+  cerrar(): void {
 
     this.dialogRef.close();
 

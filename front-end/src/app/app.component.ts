@@ -15,6 +15,7 @@ import { API_URL } from "./config/API_URL";
 import { CreateProductComponent } from './components/create-product/create-product.component';
 import { ModifyProductComponent } from './components/modify-product/modify-product.component';
 import { ProductTable } from './interfaces/ProductTable';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -34,6 +35,10 @@ export class AppComponent implements OnInit {
 
 
   expandedElement: Product | null;
+
+  //cuando es true muestre el componente de error
+  public errorMessage: boolean = false;
+
 
 
   displayedColumns: string[] = ['id', 'nombre', 'descripcion', 'cantidad', 'precio', 'total'];
@@ -61,7 +66,36 @@ export class AppComponent implements OnInit {
 
 
 
+  private CrearDataTable(products: Product[]) {
 
+    this.products = products;
+
+    //le quitamos el url para que no afecte el filtro
+    let withoutImageUrl = products.map(product => {
+      let { image_url, ...rest } = product;
+      return rest;
+    });
+
+
+    //le agregamos una nueva columna que sera el total
+    let withTotal = withoutImageUrl.map(product => {
+
+      return {
+        ...product,
+        total: product.cantidad * product.precio
+      }
+
+    });
+
+
+
+    this.dataSource = new MatTableDataSource(withTotal);
+
+    //quito el error si existe
+    this.errorMessage = false;
+
+
+  }
 
 
 
@@ -72,34 +106,31 @@ export class AppComponent implements OnInit {
 
     this.productServie.getProducts()
       .subscribe(
-        (products: Product[]) => {
-
-          this.products = products;
+        (event) => {
 
 
-          let withoutImageUrl = products.map(product => {
-            let { image_url, ...rest } = product;
-            return rest;
-          });
+          if (event.type === HttpEventType.DownloadProgress) {
+            console.log("download progress:");
+            console.log(event);
+          }
+          if (event.type === HttpEventType.Response) {
+            console.log("donwload completed");
+            this.CrearDataTable( (event.body as Product[]) );
+          }
 
+          if (event.type === HttpEventType.UploadProgress) {
+            console.log("upload progress");
+            console.log(event);
+          }
 
-          let withTotal = withoutImageUrl.map(product => {
-
-            return {
-              ...product,
-              total: product.cantidad * product.precio
-            }
-
-          });
-
-
-
-          this.dataSource = new MatTableDataSource(withTotal);
 
 
         },
 
-        err => { console.error("error en el lado del cliente"); }
+        err => {
+          console.error("error en el lado del cliente");
+          this.errorMessage = true;
+        }
 
       );
   }
@@ -182,7 +213,7 @@ export class AppComponent implements OnInit {
 
 
     dialogRef.afterClosed().subscribe(result => {
-      
+
     });
 
   }
@@ -199,7 +230,7 @@ export class AppComponent implements OnInit {
 
 
 
-  modifyProduct(product : ProductTable) {
+  modifyProduct(product: ProductTable) {
 
     const dialogRef = this.matDialog.open(ModifyProductComponent, {
       width: '400px',
@@ -212,9 +243,9 @@ export class AppComponent implements OnInit {
     })
 
 
-    dialogRef.afterClosed().subscribe( (result : ProductTable) => {
-      
-    } );
+    dialogRef.afterClosed().subscribe((result: ProductTable) => {
+
+    });
 
   }
 
@@ -254,5 +285,12 @@ export class AppComponent implements OnInit {
       );
 
 
+  }
+
+
+
+
+  onReintentar() {
+    this.retrieveProducts()
   }
 }

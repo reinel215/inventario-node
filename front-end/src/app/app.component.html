@@ -127,3 +127,6 @@
 
 
 <button mat-button (click)="insertProduct()"> open dialog </button>
+
+
+<app-error-connection *ngIf="errorMessage" (reintentarEvent)="onReintentar()"></app-error-connection>
