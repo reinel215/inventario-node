@@ -182,8 +182,7 @@ export class AppComponent implements OnInit {
 
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('the dialog was closed');
-      console.log(result);
+      
     });
 
   }
@@ -214,9 +213,7 @@ export class AppComponent implements OnInit {
 
 
     dialogRef.afterClosed().subscribe( (result : ProductTable) => {
-      console.log("the dialog modify was closed");
-      console.log(result);
-      console.log(product);
+      
     } );
 
   }

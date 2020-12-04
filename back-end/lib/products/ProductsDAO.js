@@ -6,8 +6,12 @@ const getAllQuery = "SELECT id, nombre, descripcion, cantidad, precio, image_url
 const getQuery = "SELECT id, nombre, descripcion, cantidad, precio, image_url FROM PRODUCT WHERE id=$1;";
 const insertQuery = "INSERT INTO PRODUCT (nombre, descripcion, cantidad, precio, image_url) VALUES ($1,$2,$3,$4,$5);";
 const deleteQuery = "DELETE FROM PRODUCT WHERE id=$1";
-const updateQuery = "UPDATE PRODUCT SET nombre=$1, descripcion=$2, cantidad=$3, precio=$4, image_url=$5 WHERE id=$6"
+const updateQuery = "UPDATE PRODUCT SET nombre=$1, descripcion=$2, cantidad=$3, precio=$4 WHERE id=$5"
+const updateImage = "UPDATE PRODUCT SET image_url=$1 WHERE id=$2";
 const getProductWithName = "SELECT id,nombre,descripcion,cantidad,precio FROM PRODUCT WHERE nombre=$1;";
+
+
+
 
 class ProductsDAO {
 
@@ -91,11 +95,11 @@ class ProductsDAO {
     }
 
 
-    async updateProduct({ id, nombre, descripcion, cantidad, precio, image_url }) {
+    async updateProduct({ id, nombre, descripcion, cantidad, precio }) {
 
         try {
 
-            const result = await this.client.query(updateQuery, [nombre, descripcion, cantidad, precio, image_url, id]);
+            const result = await this.client.query(updateQuery, [nombre, descripcion, cantidad, precio, id]);
             return result;
 
         } catch (error_) {
@@ -105,6 +109,22 @@ class ProductsDAO {
 
         }
 
+
+    }
+
+
+    async updateImage({id,image_url}){
+
+        try {
+
+            const result = await this.client.query(updateImage, [ image_url, id]);
+            return result;
+
+        } catch (error_) {
+            const error = this.handleError(error_);
+            console.log("******ERROR EN 'updateImage' en productDAO");
+            throw error;
+        }
 
     }
 

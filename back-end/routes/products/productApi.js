@@ -107,13 +107,17 @@ const productApi = (app) => {
 
 
 
-    router.put('/:id', async (req, res, next) => {
+    router.put('/:id', multer ,async (req, res, next) => {
 
         try {
+
+            
+
             const id = req.params.id;
             const product = {
                 ...req.body,
-                id
+                id,
+                image_url : req.file ? req.file.path : null
             };
 
             const result = await productService.updateProduct(product);

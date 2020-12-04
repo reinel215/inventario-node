@@ -35,6 +35,7 @@ class postgreLib {
             } catch (error_) {
                 const error = this.handlerError(error_);
                 console.log("******ERROR DURANTE EL QUERY");
+                console.log(query);
                 throw error;   
             }
         }

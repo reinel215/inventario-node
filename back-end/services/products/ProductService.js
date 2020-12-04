@@ -48,6 +48,12 @@ class ProductService {
     async updateProduct(product){
 
         const result = await this.productsDAO.updateProduct(product);
+
+        if (product.image_url){
+            const imageUpdate = await this.productsDAO.updateImage(product);
+        }
+
+        
         return result;
 
     }
