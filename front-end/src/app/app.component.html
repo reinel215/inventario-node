@@ -6,6 +6,8 @@
 
     <h1 class="toolbar-title">AUTO REPUESTOS GUAICAIPURO 2030 C.A.</h1>
 
+    <button class="create-button" mat-stroked-button [disabled]="errorMessage" (click)="insertProduct()"> Crear Producto </button>
+
   </mat-toolbar-row>
 
 
@@ -22,8 +24,12 @@
 </mat-toolbar>
 
 
+<mat-progress-bar *ngIf="cargandoBar && !errorMessage" color="accent" mode="query"></mat-progress-bar>
 
-<table *ngIf="dataSource" mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8 table">
+
+
+
+<table *ngIf="dataSource && !cargandoBar" mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8 table">
 
 
   <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
@@ -124,9 +130,6 @@
 </table>
 
 
-
-
-<button mat-button (click)="insertProduct()"> open dialog </button>
 
 
 <app-error-connection *ngIf="errorMessage" (reintentarEvent)="onReintentar()"></app-error-connection>

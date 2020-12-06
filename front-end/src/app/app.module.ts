@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 
 import { HttpClientModule } from '@angular/common/http';
 import { DecimalPipePipe } from './pipes/decimal-pipe.pipe';
@@ -46,6 +47,7 @@ import { ErrorConnectionComponent } from './components/error-connection/error-co
     MatCardModule,
     MatIconModule,
     MatSnackBarModule,
+    MatProgressBarModule,
 
     HttpClientModule
   ],

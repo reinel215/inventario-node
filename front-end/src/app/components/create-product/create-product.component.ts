@@ -56,14 +56,22 @@ export class CreateProductComponent implements OnInit {
     this.productService.insertProduct(formData).subscribe((event) => {
       
 
-      if (event.type === HttpEventType.DownloadProgress) {
-        console.log("download progress:");
-        console.log(event);
-      }
+      // if (event.type === HttpEventType.DownloadProgress) {
+      //   console.log("download progress:");
+      //   console.log(event);
+      // }
       if (event.type === HttpEventType.Response) {
         console.log("donwload completed");
         console.log(event);
       }
+
+      if (event.type === HttpEventType.UploadProgress){
+
+        console.log("upload progress");
+        console.log(event);
+
+      }
+
     });
 
   }

@@ -39,6 +39,8 @@ export class AppComponent implements OnInit {
   //cuando es true muestre el componente de error
   public errorMessage: boolean = false;
 
+  public cargandoBar : boolean = true;
+
 
 
   displayedColumns: string[] = ['id', 'nombre', 'descripcion', 'cantidad', 'precio', 'total'];
@@ -103,24 +105,19 @@ export class AppComponent implements OnInit {
 
   //solicuta todos los productos para llenar la tabla
   retrieveProducts() {
+    this.cargandoBar = true;
 
     this.productServie.getProducts()
       .subscribe(
         (event) => {
 
 
-          if (event.type === HttpEventType.DownloadProgress) {
-            console.log("download progress:");
-            console.log(event);
-          }
+
           if (event.type === HttpEventType.Response) {
             console.log("donwload completed");
             this.CrearDataTable( (event.body as Product[]) );
-          }
+            this.cargandoBar = false
 
-          if (event.type === HttpEventType.UploadProgress) {
-            console.log("upload progress");
-            console.log(event);
           }
 
 
@@ -177,6 +174,9 @@ export class AppComponent implements OnInit {
 
   // aplica un filtro para la tabla de material-ui
   applyFilter(event: Event) {
+
+    if (!this.dataSource) return;
+
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
