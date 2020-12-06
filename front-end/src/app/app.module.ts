@@ -23,6 +23,7 @@ import { DecimalPipePipe } from './pipes/decimal-pipe.pipe';
 import { CreateProductComponent } from './components/create-product/create-product.component';
 import { ModifyProductComponent } from './components/modify-product/modify-product.component';
 import { ErrorConnectionComponent } from './components/error-connection/error-connection.component';
+import { AckDeleteComponent } from './components/ack-delete/ack-delete.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { ErrorConnectionComponent } from './components/error-connection/error-co
     DecimalPipePipe,
     CreateProductComponent,
     ModifyProductComponent,
-    ErrorConnectionComponent
+    ErrorConnectionComponent,
+    AckDeleteComponent
   ],
   imports: [
     BrowserModule,

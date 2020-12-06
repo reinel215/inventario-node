@@ -1,0 +1,23 @@
+<div mat-dialog-title>
+    <mat-toolbar color="warn">
+
+        <h1 class="toolbar-title">Estas seguro ?</h1>
+
+    </mat-toolbar>
+</div>
+
+
+
+
+<div mat-dialog-content>
+
+    <p>si borra un producto no se podra retroceder...</p>
+
+</div>
+
+
+
+<div mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="cancelar()">No, cancelar.</button>
+    <button mat-raised-button cdkFocusInitial color="primary" (click)="eliminar()">Si, eliminar.</button>
+</div>

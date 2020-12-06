@@ -14,6 +14,7 @@ import { API_URL } from "./config/API_URL";
 //IMPORTS MY COMPONENTS
 import { CreateProductComponent } from './components/create-product/create-product.component';
 import { ModifyProductComponent } from './components/modify-product/modify-product.component';
+import { AckDeleteComponent } from "./components/ack-delete/ack-delete.component";
 import { ProductTable } from './interfaces/ProductTable';
 import { HttpEventType } from '@angular/common/http';
 
@@ -268,6 +269,23 @@ export class AppComponent implements OnInit {
 
 
 
+  onDelete(id: number | string){
+
+    let dialogRef = this.matDialog.open(AckDeleteComponent,{
+      height : '200px',
+      width : '400px',
+      panelClass: 'create-product-dialog',
+    })
+
+
+    dialogRef.afterClosed().subscribe( (deleted : boolean = false) => {
+
+      deleted ? this.deleteProduct(id) : null;
+
+
+    });
+
+  }
 
   deleteProduct(id: number | string) {
     console.log(id);
