@@ -66,8 +66,7 @@ class ProductsDAO {
             const result = await this.client.query(insertQuery, [nombre, descripcion, cantidad, precio, image_url]);
             return result;
 
-        } catch (error_) {
-            const error = this.handleError(error_);
+        } catch (error) {
             console.log("******ERROR EN 'insertProduct' en productDAO");
             throw error;
 
@@ -147,16 +146,6 @@ class ProductsDAO {
 
     }
 
-
-    handleError(error) {
-
-        switch (error.message) {
-            case 'Error campo debe ser unico':
-                return new Error("el nombre del producto debe ser unico");
-                break;
-        }
-
-    }
 
 }
 

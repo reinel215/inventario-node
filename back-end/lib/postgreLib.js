@@ -32,10 +32,8 @@ class postgreLib {
                 const result = await postgreLib.clientPool.query(query,values);
                 return result.rows;
 
-            } catch (error_) {
-                const error = this.handlerError(error_);
+            } catch (error) {
                 console.log("******ERROR DURANTE EL QUERY");
-                console.log(query);
                 throw error;   
             }
         }
@@ -53,19 +51,6 @@ class postgreLib {
         }
     }
 
-
-
-
-
-    handlerError (error){
-
-        switch (error.code) {
-            case '23505':
-                return new Error('Error campo debe ser unico');
-        }
-
-
-    }
 
 
 

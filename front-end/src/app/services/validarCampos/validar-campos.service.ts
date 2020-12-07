@@ -23,7 +23,7 @@ export class ValidarCamposService {
 
   decimales(cantidad : string){
 
-    const pattern = /^\d+(,\d+)?$/;
+    const pattern = /^\d+(\.\d+)?$/;
 
     return pattern.test(cantidad);
   }

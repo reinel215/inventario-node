@@ -21,6 +21,8 @@ export class CreateProductComponent implements OnInit {
   public cantidad: string = '';
   public descripcion: string;
 
+  public progress : number;
+
   constructor(
     public dialogRef: MatDialogRef<CreateProductComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -34,8 +36,23 @@ export class CreateProductComponent implements OnInit {
 
 
 
+  datosInvalidos() : boolean{
+
+    if (!this.nombre || !this.descripcion || !this.cantidad || !this.precio || !this.validarService.decimales(this.precio) || !this.validarService.soloEnteros(this.cantidad)){
+      return true;
+    }
+
+    return false;
+
+  }
+
 
   crearProducto(): void {
+    
+    if(this.datosInvalidos()){
+      console.log('datos invalidos');
+      return;
+    }
 
     let file: File = null;
     let productImageElemet: HTMLInputElement = (document.getElementById('productImage') as HTMLInputElement);
@@ -59,23 +76,35 @@ export class CreateProductComponent implements OnInit {
     this.productService.insertProduct(formData).subscribe((event) => {
       
 
-      // if (event.type === HttpEventType.DownloadProgress) {
-      //   console.log("download progress:");
-      //   console.log(event);
-      // }
       if (event.type === HttpEventType.Response) {
         console.log("donwload completed");
         console.log(event);
+        this.dialogRef.close(true);
       }
 
       if (event.type === HttpEventType.UploadProgress){
 
-        console.log("upload progress");
-        console.log(event);
+        this.actualizarUpload(event);
 
       }
 
-    });
+    },
+    
+    err => { this.dialogRef.close(false) }
+    );
+
+  }
+
+
+
+
+
+
+  actualizarUpload(event){
+
+    this.progress = Math.round( (event.loaded / event.total) * 100 );
+    console.log(this.progress);
+
 
   }
 
@@ -106,7 +135,7 @@ export class CreateProductComponent implements OnInit {
 
     
     const numberPattern = /[0-9]/;
-    const decimalPattern = /\,/;
+    const decimalPattern = /\./;
 
 
     const inputChart = event.key;
