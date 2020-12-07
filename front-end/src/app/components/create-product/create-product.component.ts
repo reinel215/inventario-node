@@ -4,7 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ProductoService } from 'src/app/services/producto-service.service';
+import { ProductoService } from 'src/app/services/productoService/producto-service.service';
+import { ValidarCamposService } from 'src/app/services/validarCampos/validar-campos.service';
+
 
 @Component({
   selector: 'app-create-product',
@@ -15,14 +17,15 @@ export class CreateProductComponent implements OnInit {
 
 
   public nombre: string;
-  public precio: string;
+  public precio: string = '';
   public cantidad: string = '';
   public descripcion: string;
 
   constructor(
     public dialogRef: MatDialogRef<CreateProductComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private productService: ProductoService
+    private productService: ProductoService,
+    private validarService: ValidarCamposService
   ) { }
 
   ngOnInit(): void {
@@ -83,13 +86,33 @@ export class CreateProductComponent implements OnInit {
 
     this.cantidad == null ? this.cantidad = '' : null;
 
-    const pattern = /^[1-9][0-9]*$/;
+    const pattern = /[0-9]/;
+
     const inputChar = event.key;
-    let cantidad = this.cantidad + inputChar;
+
+    if (!pattern.test(inputChar)) {
+
+      event.preventDefault();
+
+    }
+
+  }
 
 
 
-    if (!pattern.test(cantidad)) {
+  soloDecimales(event : KeyboardEvent) {
+
+    this.precio === null ? this.precio = '' : null;
+
+    
+    const numberPattern = /[0-9]/;
+    const decimalPattern = /\,/;
+
+
+    const inputChart = event.key;
+
+
+    if(!numberPattern.test(inputChart) && !decimalPattern.test(inputChart)){
 
       event.preventDefault();
 

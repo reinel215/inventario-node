@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProductTable } from 'src/app/interfaces/ProductTable';
-import { ProductoService } from 'src/app/services/producto-service.service';
+import { ProductoService } from 'src/app/services/productoService/producto-service.service';
 
 @Component({
   selector: 'app-modify-product',

@@ -22,13 +22,13 @@
 
             <mat-form-field>
                 <mat-label>Cantidad.</mat-label>
-                <input (keypress)="soloEnteros($event)" [(ngModel)]="cantidad" name="cantidad" matInput type="number">
+                <input (keypress)="soloEnteros($event)" [(ngModel)]="cantidad" name="cantidad" matInput>
             </mat-form-field>
 
 
             <mat-form-field>
                 <mat-label>Precio.</mat-label>
-                <input [(ngModel)]="precio" name="precio" matInput type="number">
+                <input (keypress)="soloDecimales($event)" [(ngModel)]="precio" name="precio" matInput>
             </mat-form-field>
 
 
