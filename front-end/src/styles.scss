@@ -58,3 +58,49 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   padding: 0;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//clases para los snack bars
+
+
+
+.error-snack{
+
+  background-color: #EC3C3C;
+
+
+  .mat-simple-snackbar-action {
+
+    color: white;
+  }
+
+}
+
+
+
+
+.success-snack{
+
+
+  background-color: #3CC662;
+
+
+  .mat-simple-snackbar-action {
+
+    color: white;
+  }
+
+
+
+}

@@ -17,6 +17,7 @@ import { ModifyProductComponent } from './components/modify-product/modify-produ
 import { AckDeleteComponent } from "./components/ack-delete/ack-delete.component";
 import { ProductTable } from './interfaces/ProductTable';
 import { HttpEventType } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -40,7 +41,7 @@ export class AppComponent implements OnInit {
   //cuando es true muestre el componente de error
   public errorMessage: boolean = false;
 
-  public cargandoBar : boolean = true;
+  public cargandoBar: boolean = true;
 
 
 
@@ -52,7 +53,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private productServie: ProductoService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private snackBar: MatSnackBar
   ) { }
 
 
@@ -116,7 +118,7 @@ export class AppComponent implements OnInit {
 
           if (event.type === HttpEventType.Response) {
             console.log("donwload completed");
-            this.CrearDataTable( (event.body as Product[]) );
+            this.CrearDataTable((event.body as Product[]));
             this.cargandoBar = false
 
           }
@@ -215,12 +217,26 @@ export class AppComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
 
-      if (result){
+      if (result === 'finalizado') {
         this.retrieveProducts()
         //show some good message
-      }else{
+        this.snackBar.open('El producto ha sido registrado en el sistema.', 'cerrar', {
+          panelClass: 'success-snack',
+          duration: 3000,
+        });
 
-        //show some bad message
+      } else if (result === 'error') {
+        this.snackBar.open('Error!! parece que algo ha salido mal...', 'cerrar', {
+          panelClass: 'error-snack',
+          duration: 3000,
+        });
+      }else if (result === 'nombre_invalido'){
+
+        this.snackBar.open('el nombre de ese producto ya existe', 'cerrar', {
+          panelClass: 'error-snack',
+          duration: 3000,
+        });
+
       }
 
 
@@ -278,16 +294,16 @@ export class AppComponent implements OnInit {
 
 
 
-  onDelete(id: number | string){
+  onDelete(id: number | string) {
 
-    let dialogRef = this.matDialog.open(AckDeleteComponent,{
-      height : '200px',
-      width : '400px',
+    let dialogRef = this.matDialog.open(AckDeleteComponent, {
+      height: '200px',
+      width: '400px',
       panelClass: 'create-product-dialog',
     })
 
 
-    dialogRef.afterClosed().subscribe( (deleted : boolean = false) => {
+    dialogRef.afterClosed().subscribe((deleted: boolean = false) => {
 
       deleted ? this.deleteProduct(id) : null;
 

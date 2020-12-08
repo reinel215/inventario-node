@@ -1,9 +1,10 @@
-import { HttpEventType } from '@angular/common/http';
+import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { Inject } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductoService } from 'src/app/services/productoService/producto-service.service';
 import { ValidarCamposService } from 'src/app/services/validarCampos/validar-campos.service';
 
@@ -21,13 +22,16 @@ export class CreateProductComponent implements OnInit {
   public cantidad: string = '';
   public descripcion: string;
 
-  public progress : number;
+  public progress: number;
+
+  public cargando: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<CreateProductComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private productService: ProductoService,
-    private validarService: ValidarCamposService
+    private validarService: ValidarCamposService,
+    private snackBar : MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -36,9 +40,9 @@ export class CreateProductComponent implements OnInit {
 
 
 
-  datosInvalidos() : boolean{
+  datosInvalidos(): boolean {
 
-    if (!this.nombre || !this.descripcion || !this.cantidad || !this.precio || !this.validarService.decimales(this.precio) || !this.validarService.soloEnteros(this.cantidad)){
+    if (!this.nombre || !this.descripcion || !this.cantidad || !this.precio || !this.validarService.decimales(this.precio) || !this.validarService.soloEnteros(this.cantidad)) {
       return true;
     }
 
@@ -48,11 +52,20 @@ export class CreateProductComponent implements OnInit {
 
 
   crearProducto(): void {
-    
-    if(this.datosInvalidos()){
+
+    if (this.datosInvalidos()) {
       console.log('datos invalidos');
+      this.snackBar.open('valores con datos incorrectos o incompletos','cerrar', {
+        panelClass: 'error-snack',
+        duration: 3000,
+      });
       return;
     }
+
+
+    //desabilitamos los botones
+    this.cargando = true;
+
 
     let file: File = null;
     let productImageElemet: HTMLInputElement = (document.getElementById('productImage') as HTMLInputElement);
@@ -74,23 +87,33 @@ export class CreateProductComponent implements OnInit {
     formData.append('cantidad', this.cantidad);
 
     this.productService.insertProduct(formData).subscribe((event) => {
-      
 
+      //respuesta final
       if (event.type === HttpEventType.Response) {
         console.log("donwload completed");
-        console.log(event);
-        this.dialogRef.close(true);
+        this.dialogRef.close('finalizado');
       }
 
-      if (event.type === HttpEventType.UploadProgress){
+
+      //eventos para el progreso de la carga
+      if (event.type === HttpEventType.UploadProgress) {
 
         this.actualizarUpload(event);
 
       }
 
     },
-    
-    err => { this.dialogRef.close(false) }
+
+      (err) => { 
+        
+        if (err?.error?.code === '23505'){
+          this.dialogRef.close('nombre_invalido');
+          return;
+        }
+        
+        this.dialogRef.close('error') 
+      
+      }
     );
 
   }
@@ -100,9 +123,9 @@ export class CreateProductComponent implements OnInit {
 
 
 
-  actualizarUpload(event){
+  actualizarUpload(event) {
 
-    this.progress = Math.round( (event.loaded / event.total) * 100 );
+    this.progress = Math.round((event.loaded / event.total) * 100);
     console.log(this.progress);
 
 
@@ -129,11 +152,11 @@ export class CreateProductComponent implements OnInit {
 
 
 
-  soloDecimales(event : KeyboardEvent) {
+  soloDecimales(event: KeyboardEvent) {
 
     this.precio === null ? this.precio = '' : null;
 
-    
+
     const numberPattern = /[0-9]/;
     const decimalPattern = /\./;
 
@@ -141,7 +164,7 @@ export class CreateProductComponent implements OnInit {
     const inputChart = event.key;
 
 
-    if(!numberPattern.test(inputChart) && !decimalPattern.test(inputChart)){
+    if (!numberPattern.test(inputChart) && !decimalPattern.test(inputChart)) {
 
       event.preventDefault();
 
@@ -153,7 +176,7 @@ export class CreateProductComponent implements OnInit {
 
   cerrar(): void {
 
-    this.dialogRef.close();
+    this.dialogRef.close('cancelado');
 
   }
 

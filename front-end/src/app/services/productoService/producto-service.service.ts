@@ -31,7 +31,7 @@ export class ProductoService {
     }
 
     //hacemos cosas con el error
-    return throwError('Algo salio malisimo');
+    return throwError(error.error);
 
   }
 
