@@ -25,3 +25,17 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+
+
+
+# how to create the MSI installer
+
+
+## step 1
+
+Create the production package with `electron-packager`. Installed with `npm install electron-packager -g`
+
+then use the follow command:
+`electron-packager [directory] --platform=[your_platform] --arch=[your_arch] [name]`

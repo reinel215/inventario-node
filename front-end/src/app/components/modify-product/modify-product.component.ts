@@ -23,8 +23,6 @@ export class ModifyProductComponent implements OnInit {
   public descripcion: string;
 
 
-  public progress: number;
-
 
   public cargando: boolean = false;
 
@@ -115,17 +113,6 @@ export class ModifyProductComponent implements OnInit {
 
   }
 
-
-
-
-
-  actualizarUpload(event) {
-
-    this.progress = Math.round((event.loaded / event.total) * 100);
-    console.log(this.progress);
-
-
-  }
 
 
 

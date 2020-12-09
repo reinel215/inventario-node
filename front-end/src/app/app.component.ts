@@ -341,16 +341,27 @@ export class AppComponent implements OnInit {
       .subscribe((response: Object) => {
 
         this.retrieveProducts();
+
+        this.snackBar.open('El producto ha sido eliminado del sistema.', 'cerrar', {
+          panelClass: 'success-snack',
+          duration: 3000,
+        });
+
       },
 
         err => {
-          console.log(err);
-          console.log("error borrando el producto");
+          this.snackBar.open('Error!! parece que algo ha salido mal...', 'cerrar', {
+            panelClass: 'error-snack',
+            duration: 3000,
+          });
         }
       );
 
 
   }
+
+
+
 
 
 
