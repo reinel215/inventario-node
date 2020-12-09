@@ -63,7 +63,7 @@ export class CreateProductComponent implements OnInit {
     }
 
 
-    //desabilitamos los botones
+    //habilitamos la progress bar y deshabilitamos los botones
     this.cargando = true;
 
 

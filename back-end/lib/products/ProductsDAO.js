@@ -30,8 +30,7 @@ class ProductsDAO {
             const products = await this.client.query(getAllQuery);
             return products;
 
-        }  catch (error_) {
-            const error = this.handleError(error_);
+        }  catch (error) {
             console.log("******ERROR EN 'getProducts' en productDAO");
             throw error;
 
@@ -47,9 +46,8 @@ class ProductsDAO {
             const product = await this.client.query(getQuery, [id]);
             return product;
 
-        }  catch (error_) {
+        }  catch (error) {
 
-            const error = this.handleError(error_);
             console.log("******ERROR EN 'getProduct' en productDAO");
             throw error;
 
@@ -84,8 +82,7 @@ class ProductsDAO {
             const result = await this.client.query(deleteQuery, [id]);
             return result;
 
-        } catch (error_) {
-            const error = this.handleError(error_);
+        } catch (error) {
             console.log("******ERROR EN 'deleteProduct' en productDAO");
             throw error;
 
@@ -101,8 +98,7 @@ class ProductsDAO {
             const result = await this.client.query(updateQuery, [nombre, descripcion, cantidad, precio, id]);
             return result;
 
-        } catch (error_) {
-            const error = this.handleError(error_);
+        } catch (error) {
             console.log("******ERROR EN 'updateProduct' en productDAO");
             throw error;
 
@@ -119,8 +115,7 @@ class ProductsDAO {
             const result = await this.client.query(updateImage, [ image_url, id]);
             return result;
 
-        } catch (error_) {
-            const error = this.handleError(error_);
+        } catch (error) {
             console.log("******ERROR EN 'updateImage' en productDAO");
             throw error;
         }
@@ -137,8 +132,7 @@ class ProductsDAO {
             const result = await this.client.query(getProductWithName, [name]);
             return result;
 
-        } catch (error_) {
-            const error = this.handleError(error_);
+        } catch (error) {
             console.log("******ERROR EN 'getProductWithName' en productDAO");
             throw error;
 

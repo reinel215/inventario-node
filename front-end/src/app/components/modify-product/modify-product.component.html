@@ -18,25 +18,27 @@
 
             <mat-form-field>
                 <mat-label>Nombre</mat-label>
-                <input [(ngModel)]="nombre" name="nombre" matInput>
+                <input maxlength="50" [(ngModel)]="nombre" #nombreId  name="nombre" matInput>
+                <mat-hint align="end">{{nombreId.value.length}} / 50</mat-hint>
             </mat-form-field>
 
             <mat-form-field>
                 <mat-label>Cantidad.</mat-label>
-                <input (keypress)="soloEnteros($event)" [(ngModel)]="cantidad" name="cantidad" matInput type="number">
+                <input (keypress)="soloEnteros($event)" [(ngModel)]="cantidad" name="cantidad" matInput >
             </mat-form-field>
 
 
             <mat-form-field>
                 <mat-label>Precio.</mat-label>
-                <input [(ngModel)]="precio" name="precio" matInput type="number">
+                <input (keypress)="soloDecimales($event)" [(ngModel)]="precio" name="precio" matInput >
             </mat-form-field>
 
 
 
             <mat-form-field class="descripcion">
                 <mat-label>Descripcion</mat-label>
-                <textarea [(ngModel)]="descripcion" name="descripcion" matInput></textarea>
+                <textarea maxlength="500" [(ngModel)]="descripcion" #descripcionId name="descripcion" matInput></textarea>
+                <mat-hint align="end">{{descripcionId.value.length}} / 500</mat-hint>
             </mat-form-field>
 
 

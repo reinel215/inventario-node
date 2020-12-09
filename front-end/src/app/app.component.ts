@@ -230,7 +230,7 @@ export class AppComponent implements OnInit {
           panelClass: 'error-snack',
           duration: 3000,
         });
-      }else if (result === 'nombre_invalido'){
+      } else if (result === 'nombre_invalido') {
 
         this.snackBar.open('el nombre de ese producto ya existe', 'cerrar', {
           panelClass: 'error-snack',
@@ -269,7 +269,29 @@ export class AppComponent implements OnInit {
     })
 
 
-    dialogRef.afterClosed().subscribe((result: ProductTable) => {
+    dialogRef.afterClosed().subscribe((result) => {
+
+      if (result === 'finalizado') {
+        this.retrieveProducts()
+        //show some good message
+        this.snackBar.open('El producto ha sido registrado en el sistema.', 'cerrar', {
+          panelClass: 'success-snack',
+          duration: 3000,
+        });
+
+      } else if (result === 'error') {
+        this.snackBar.open('Error!! parece que algo ha salido mal...', 'cerrar', {
+          panelClass: 'error-snack',
+          duration: 3000,
+        });
+      } else if (result === 'nombre_invalido') {
+
+        this.snackBar.open('el nombre de ese producto ya existe', 'cerrar', {
+          panelClass: 'error-snack',
+          duration: 3000,
+        });
+
+      }
 
     });
 

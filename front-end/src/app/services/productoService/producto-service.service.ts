@@ -66,8 +66,6 @@ export class ProductoService {
 
   }
 
-
-
   deleteProduct(id : number | string) : Observable<Object>{
     const url = API_URL + '/api/products/' + id;
 
@@ -80,12 +78,11 @@ export class ProductoService {
 
 
 
-  updateProduct(formData : FormData, id : number){
+  updateProduct(formData : FormData, id : number) : Observable<any> {
 
     const url = API_URL + '/api/products/' + id;
 
-
-    return this.http.put<Object>(url,formData)
+    return this.http.put<any>(url, formData)
     .pipe(
       catchError(this.errorHandler)
     );
