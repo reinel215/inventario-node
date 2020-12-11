@@ -60,8 +60,8 @@
 
 
     <div mat-dialog-actions>
-        <button mat-raised-button color="warn" (click)="cerrar()">Cancelar</button>
-        <button mat-raised-button cdkFocusInitial color="primary" (click)="modificarProducto()">Modificar</button>
+        <button mat-raised-button color="warn" (click)="cerrar()" [disabled]="cargando">Cancelar</button>
+        <button mat-raised-button cdkFocusInitial color="primary" (click)="modificarProducto()" [disabled]="cargando">Modificar</button>
     </div>
 
 

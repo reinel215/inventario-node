@@ -320,7 +320,7 @@ export class AppComponent implements OnInit {
 
     let dialogRef = this.matDialog.open(AckDeleteComponent, {
       height: '200px',
-      width: '400px',
+      width: '350px',
       panelClass: 'create-product-dialog',
     })
 

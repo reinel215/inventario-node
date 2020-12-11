@@ -6,7 +6,7 @@
 
     <h1 class="toolbar-title">AUTO REPUESTOS GUAICAIPURO 2030 C.A.</h1>
 
-    <button class="create-button" mat-stroked-button [disabled]="errorMessage" (click)="insertProduct()"> Crear Producto </button>
+    <button class="create-button" mat-stroked-button [disabled]="errorMessage || cargandoBar" (click)="insertProduct()"> Crear Producto </button>
 
   </mat-toolbar-row>
 
@@ -15,7 +15,7 @@
 
     <mat-form-field class="input-filter">
       <mat-label>Filtro</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="escriba..." #input>
+      <input matInput [disabled]="errorMessage || cargandoBar" (keyup)="applyFilter($event)" placeholder="escriba..." #input>
     </mat-form-field>
 
 
@@ -91,7 +91,7 @@
             </div>
 
             <div class="footer-actions-modify">
-              <button mat-raised-button color="primary" (click)="modifyProduct(element)" >Modificar</button>
+              <button mat-raised-button color="primary" (click)="modifyProduct(element)" >Actualizar</button>
             </div>
             
           </div>
