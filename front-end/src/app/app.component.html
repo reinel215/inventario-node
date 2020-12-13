@@ -6,6 +6,8 @@
 
     <h1 class="toolbar-title">AUTO REPUESTOS GUAICAIPURO 2030 C.A.</h1>
 
+    <button class="refres-button" mat-stroked-button [disabled]="errorMessage || cargandoBar" (click)="retrieveProducts()"> Refrescar </button>
+
     <button class="create-button" mat-stroked-button [disabled]="errorMessage || cargandoBar" (click)="insertProduct()"> Crear Producto </button>
 
   </mat-toolbar-row>
