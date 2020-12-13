@@ -22,9 +22,8 @@ const storage = multer.diskStorage({
 const fileFilter = async (req,file,callback) =>{
 
     const productService = new ProductService();
-    const product =  await productService.getProductWithName(req.body.nombre);
 
-    if( (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') && product.length===0 ){
+    if( (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') ){
 
         callback(null,true);
 

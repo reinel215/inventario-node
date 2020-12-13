@@ -6,7 +6,7 @@ const getAllQuery = "SELECT id, nombre, descripcion, cantidad, precio, image_url
 const getQuery = "SELECT id, nombre, descripcion, cantidad, precio, image_url FROM PRODUCT WHERE id=$1;";
 const insertQuery = "INSERT INTO PRODUCT (nombre, descripcion, cantidad, precio, image_url) VALUES ($1,$2,$3,$4,$5);";
 const deleteQuery = "DELETE FROM PRODUCT WHERE id=$1";
-const updateQuery = "UPDATE PRODUCT SET nombre=$1, descripcion=$2, cantidad=$3, precio=$4 WHERE id=$5"
+const updateQuery = "UPDATE PRODUCT SET nombre=$1, descripcion=$2, cantidad=$3, precio=$4 WHERE id=$5 RETURNING id,image_url"
 const updateImage = "UPDATE PRODUCT SET image_url=$1 WHERE id=$2";
 const getProductWithName = "SELECT id,nombre,descripcion,cantidad,precio FROM PRODUCT WHERE nombre=$1;";
 

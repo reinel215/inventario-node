@@ -111,7 +111,7 @@ const productApi = (app) => {
 
         try {
 
-            
+        
 
             const id = req.params.id;
             const product = {

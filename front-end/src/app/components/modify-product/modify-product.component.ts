@@ -86,11 +86,11 @@ export class ModifyProductComponent implements OnInit {
     }
 
     let formData = new FormData();
-    formData.append('productImage', file);
     formData.append('nombre', this.nombre);
     formData.append('descripcion', this.descripcion);
     formData.append('precio', this.precio);
     formData.append('cantidad', this.cantidad);
+    formData.append('productImage', file);
 
     this.productService.updateProduct(formData, this.data.id).subscribe(
       (event) => {
