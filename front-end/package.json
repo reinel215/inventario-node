@@ -1,7 +1,7 @@
 {
   "name": "inventario",
   "version": "0.0.0",
-  "main": "electron/dist/main.js",
+  "main": "electron/main.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -10,7 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "postinstall": "ngcc",
-    "electron": "ng build --base-href \"./\" && tsc -p electron && electron ."
+    "electron": "ng build --base-href \"./\" && electron ."
   },
   "private": true,
   "dependencies": {
